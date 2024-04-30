@@ -23,7 +23,7 @@
 
         //Check colwise (colonoscopy hahah)
         let colTest = (ref) => {
-            if (ref > 2) return false
+            if (ref > 2) return false //Fail safe to preveent overflow
 
             let test = board.every((row, i)=>{
                 return (row[ref] === board[0][ref]) && (row[ref] !== null)
@@ -33,9 +33,24 @@
             
             return colTest(ref+1)
         }
+
+        //Check diagonal
+        let diaTest = () => {
+            let center = board[1][1]
+
+            if (board[0][0] === center) {
+                if (board[2][2] === center) return true
+            }
+
+            if (board[0][2] === center) {
+                if (board[2][0] === center) return true
+            }
+        }
+
         
         if (rowTest == true) return 'Row wins'
         if (colTest(0) == true) return 'Col wins'
+        if (diaTest() == true) return 'Dia win'
         
         
         
